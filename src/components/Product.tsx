@@ -12,7 +12,7 @@ import type { ProductInterface } from "src/products";
 interface Props {
   product: ProductInterface;
   type: "add" | "remove";
-  quantity: number;
+  quantity?: number;
 }
 
 const Product = ({ product, type = "remove", quantity }: Props) => {

@@ -3,8 +3,15 @@ import { NavLink } from "react-router";
 import { memo } from "react";
 
 import Basket from "@components/Basket";
+import { useAppSelector } from "@stores/store";
+
+import { update } from "@stores/inputSlice";
+import { useDispatch } from "react-redux";
 
 export const Header = memo(function Header() {
+  const inputText = useAppSelector((state) => state.input.value);
+  const dispatch = useDispatch();
+
   return (
     <header>
       <nav
@@ -21,7 +28,10 @@ export const Header = memo(function Header() {
         <Basket style={{ marginLeft: "auto" }} />
       </nav>
 
-      {/* <input value={inputText} onInput={() => dispatchEvent()} */}
+      <input
+        value={inputText}
+        onInput={(e) => dispatch(update(e.target.value))}
+      />
     </header>
   );
 });

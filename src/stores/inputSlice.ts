@@ -2,11 +2,11 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface InputState {
-  input: string;
+  value: string;
 }
 
 const initialState: InputState = {
-  input: "",
+  value: "",
 };
 
 export const inputSlice = createSlice({
@@ -14,7 +14,7 @@ export const inputSlice = createSlice({
   initialState,
   reducers: {
     update: (state, action: PayloadAction<string>) => {
-      state.input = action.payload;
+      state.value = action.payload;
     },
   },
 });
