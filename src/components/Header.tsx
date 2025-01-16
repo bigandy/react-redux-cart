@@ -12,6 +12,7 @@ export const Header = memo(function Header() {
       <nav>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/cart">Cart</NavLink>
+        <NavLink to="/jokes">Jokes</NavLink>
         <Basket className="ml-auto" />
       </nav>
 

@@ -1,5 +1,6 @@
 import { getCartProducts, getTotal, clearCart } from "@stores/cartSlice";
 import { Link } from "react-router";
+import React, { memo } from "react";
 
 import { useAppSelector } from "@stores/store";
 
@@ -7,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 import Product from "@components/Product";
 
-export const CartPage = () => {
+export const CartPage = memo(() => {
   const total = useAppSelector(getTotal);
 
   const products = useAppSelector(getCartProducts);
@@ -42,4 +43,4 @@ export const CartPage = () => {
       <p>{total.toFixed(2)}</p>
     </>
   );
-};
+});

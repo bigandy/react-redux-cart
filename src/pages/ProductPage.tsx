@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { selectProductById, add } from "@stores/cartSlice";
 
 import { useAppSelector } from "@stores/store";
@@ -5,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { useParams } from "react-router";
 
-export const ProductPage = () => {
+export const ProductPage = memo(() => {
   const { id } = useParams();
 
   const product = useAppSelector((state) => selectProductById(state, +id!));
@@ -27,4 +29,4 @@ export const ProductPage = () => {
       <button onClick={() => dispatch(add(product.id))}>Add to Cart</button>
     </div>
   );
-};
+});

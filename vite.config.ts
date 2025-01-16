@@ -7,9 +7,9 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    MillionLint.vite({
-      enabled: true,
-    }),
+    // MillionLint.vite({
+    //   enabled: true,
+    // }),
     react(),
   ],
   resolve: {

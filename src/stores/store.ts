@@ -3,12 +3,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 import cartReducer from "@stores/cartSlice";
-import inputReducer from "@stores/inputSlice";
+import jokesReducer from "@stores/jokeSearchSlice";
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
-    input: inputReducer,
+    jokes: jokesReducer,
   },
 });
 
