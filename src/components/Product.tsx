@@ -19,17 +19,7 @@ const Product = ({ product, type = "remove", quantity }: Props) => {
   const dispatch = useDispatch();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "1rem",
-        alignItems: "center",
-        justifyContent: "space-between",
-        border: "1px solid",
-        padding: "1rem",
-        marginBottom: "1rem",
-      }}
-    >
+    <div className="product-wrapper">
       <div>
         <Link to={`products/${product.id}`}>{product.name}</Link>
       </div>
@@ -49,7 +39,6 @@ const Product = ({ product, type = "remove", quantity }: Props) => {
       )}
 
       <button
-        // style={{ marginLeft: "auto" }}
         onClick={() =>
           dispatch(type === "add" ? add(product.id) : remove(product.id))
         }

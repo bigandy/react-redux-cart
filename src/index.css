@@ -24,6 +24,28 @@ header nav a {
   }
 }
 
+header nav {
+  display: flex;
+  gap: 1rem;
+  justify-ccontent: center;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.product-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
