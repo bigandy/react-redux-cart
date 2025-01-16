@@ -1,16 +1,19 @@
 import { Link } from "react-router";
-import { getCartProducts, getTotal } from "../stores/cartSlice";
+import { getProductsCount, getTotal } from "../stores/cartSlice";
 
 import { useAppSelector } from "../stores/store";
 
-export const Basket = () => {
+const Basket = ({ ...attrs }) => {
   const total = useAppSelector(getTotal);
 
-  const products = useAppSelector(getCartProducts);
+  const productsCount = useAppSelector(getProductsCount);
 
   return (
-    <Link to="/cart">
-      ${total.toFixed(2)} - {products.length}
+    <Link to="/cart" {...attrs}>
+      ${total.toFixed(2)} <br />
+      {productsCount} products in cart
     </Link>
   );
 };
+
+export default Basket;

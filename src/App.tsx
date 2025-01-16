@@ -2,8 +2,9 @@ import "./App.css";
 
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import { Cart } from "@pages/Cart";
-import { Home } from "@pages/Home";
+import { CartPage } from "@pages/CartPage";
+import { HomePage } from "@pages/HomePage";
+import { ProductPage } from "@pages/ProductPage";
 import { Header } from "@components/Header";
 
 function App() {
@@ -11,8 +12,9 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/products/:id" element={<ProductPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

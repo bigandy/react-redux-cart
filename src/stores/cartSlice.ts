@@ -1,71 +1,100 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Product, products as initialProducts } from "../products";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
+import {
+  type ProductInterface,
+  products as initialProducts,
+} from "../products";
 import { RootState } from "./store";
 
-export interface CounterState {
-  addedIds: Array<number>;
-  products: Array<Product>;
+interface StoreProductRecord {
+  product: ProductInterface;
+  quantity: number;
 }
 
-const initialState: CounterState = {
-  addedIds: [],
+export interface CartState {
+  addedProducts: {
+    [k: number]: number;
+  };
+  products: Array<ProductInterface>;
+}
+
+const initialState: CartState = {
+  addedProducts: {},
   products: initialProducts,
 };
 
-const addedIds = (state: RootState) => state.cart.addedIds;
+const addedProducts = (state: RootState) => state.cart.addedProducts;
 const products = (state: RootState) => state.cart.products;
 
 export const getCartProducts = createSelector(
-  [addedIds, products],
-  (addedIds, products) => {
-    const output: Array<Product> = [];
-    addedIds?.forEach((cartProductId) => {
+  [addedProducts, products],
+  (addedProducts, products) => {
+    const output: Array<StoreProductRecord> = [];
+    Object.entries(addedProducts)?.forEach(([cartProductId, quantity]) => {
       const newProduct = products.find(
-        (product) => product.id === cartProductId
+        (product) => product.id === +cartProductId
       );
       if (newProduct) {
-        output.push(newProduct);
+        output.push({ product: newProduct, quantity });
       }
     });
     return output;
   }
 );
 
+export const selectProductById = (state: RootState, productId: number) =>
+  state.cart.products.find((product) => product.id === productId);
+
 export const getTotal = createSelector([getCartProducts], (products) => {
-  return products.reduce((total, curr) => total + curr.cost, 0);
+  return products.reduce(
+    (total, curr) => total + curr.product.cost * curr.quantity,
+    0
+  );
 });
 
-// export const getTotal = (state) => {
-//     getCartProducts(state);
-//   return cartProducts.reduce((acc, next) => {
-//     return next.cost + acc;
-//   }, 0);
-// });
+export const getProductsCount = createSelector(
+  [getCartProducts],
+  (products) => {
+    return products.reduce((total, curr) => total + curr.quantity, 0);
+  }
+);
 
 export const counterSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     add: (state, action: PayloadAction<number>) => {
-      // prevent user from adding same cart item more than once to cart.
-      if (state.addedIds.includes(action.payload)) {
-        return;
+      if (state.addedProducts[action.payload]) {
+        state.addedProducts[action.payload]++;
+      } else {
+        state.addedProducts[action.payload] = 1;
       }
-      state.addedIds.push(action.payload);
     },
 
     remove: (state, action: PayloadAction<number>) => {
-      const productIndex = state.addedIds.indexOf(action.payload);
+      delete state.addedProducts[action.payload];
+    },
 
-      if (productIndex > -1) {
-        state.addedIds.splice(productIndex, 1);
+    increaseQuantity: (state, action: PayloadAction<number>) => {
+      state.addedProducts[action.payload]++;
+    },
+
+    decreaseQuantity: (state, action: PayloadAction<number>) => {
+      if (state.addedProducts[action.payload] > 1) {
+        state.addedProducts[action.payload]--;
+      } else {
+        delete state.addedProducts[action.payload];
       }
+    },
+
+    clearCart: (state) => {
+      state.addedProducts = [];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { add, remove } = counterSlice.actions;
+export const { add, remove, clearCart, decreaseQuantity, increaseQuantity } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

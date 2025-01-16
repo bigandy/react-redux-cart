@@ -11,8 +11,17 @@
 
 header nav a {
   padding: 1rem;
-  border: 1px solid;
+  border-bottom: 3px solid;
   display: inline-block;
+
+  &:hover {
+    border-color: darkgreen;
+    color: green;
+  }
+
+  &.active {
+    border-color: green;
+  }
 }
 
 a {
