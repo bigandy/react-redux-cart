@@ -7,19 +7,15 @@ import { useAppSelector } from "@stores/store";
 
 const JokesInput = memo(() => {
   const inputText = useAppSelector((state) => state.jokes.value);
-  const status = useAppSelector((state) => state.jokes.status);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("should handle the joke searching from here?");
 
     // @ts-expect-error TODO: properly type handleJokeSearch()
     dispatch(handleJokeSearch(inputText));
   };
-
-  console.log({ status });
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,16 +1,10 @@
-import { clearCart } from "@stores/cartSlice";
 import { memo } from "react";
 
-import { useAppSelector } from "@stores/store";
 import JokesInput from "@components/JokesInput";
+import { useAppSelector } from "@stores/store";
 
 export const JokesPage = memo(() => {
-  //   const total = useAppSelector(getTotal);
-
-  const jokes = useAppSelector((state) => state.jokes.jokes);
-
-  console.log({ jokes });
-  //   const dispatch = useDispatch();
+  const searchResults = useAppSelector((state) => state.jokes.searchResults);
 
   return (
     <>
@@ -18,18 +12,14 @@ export const JokesPage = memo(() => {
 
       <JokesInput />
 
-      {jokes.length > 0 ? (
+      {searchResults.length > 0 ? (
         <>
-          {jokes.map(({ id, joke }) => {
-            return <div key={`joke-${id}`}>{joke}</div>;
-            // return (
-            //   <Product
-            //     key={product.id}
-            //     product={product}
-            //     type="remove"
-            //     quantity={quantity}
-            //   />
-            // );
+          {searchResults.map(({ id, joke }) => {
+            return (
+              <div key={`joke-${id}`} className="mb-2">
+                {joke}
+              </div>
+            );
           })}
         </>
       ) : (

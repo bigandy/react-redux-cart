@@ -5,14 +5,14 @@ export interface InputState {
   value: string;
   status: string;
   error: string | null;
-  jokes: { id: string; joke: string }[];
+  searchResults: { id: string; joke: string }[];
 }
 
 const initialState: InputState = {
   value: "",
   status: "idle",
   error: null,
-  jokes: [],
+  searchResults: [],
 };
 
 export const jokeSearchSlice = createSlice({
@@ -25,17 +25,13 @@ export const jokeSearchSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(userLoggedOut, (state) => {
-      //   // Clear out the list of posts whenever the user logs out
-      //   return initialState;
-      // })
-      .addCase(handleJokeSearch.pending, (state, action) => {
+      .addCase(handleJokeSearch.pending, (state) => {
         state.status = "pending";
       })
       .addCase(handleJokeSearch.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Add any fetched posts to the array
-        state.jokes.push(...action.payload);
+        // Store fetched jokes to the jokes state
+        state.searchResults = action.payload;
       })
       .addCase(handleJokeSearch.rejected, (state, action) => {
         state.status = "failed";
@@ -47,7 +43,6 @@ export const jokeSearchSlice = createSlice({
 export const handleJokeSearch = createAsyncThunk(
   "joke/search",
   async (searchTerm: string) => {
-    // console.log("Searching");
     const response = await fetch(
       `https://icanhazdadjoke.com/search?term=${searchTerm}`,
       {
