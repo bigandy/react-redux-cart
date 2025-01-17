@@ -2,6 +2,7 @@ import { clearCart } from "@stores/cartSlice";
 import { memo } from "react";
 
 import { useAppSelector } from "@stores/store";
+import JokesInput from "@components/JokesInput";
 
 export const JokesPage = memo(() => {
   //   const total = useAppSelector(getTotal);
@@ -14,6 +15,8 @@ export const JokesPage = memo(() => {
   return (
     <>
       <h1>Jokes</h1>
+
+      <JokesInput />
 
       {jokes.length > 0 ? (
         <>

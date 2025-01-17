@@ -4,8 +4,6 @@ import { memo } from "react";
 
 import Basket from "@components/Basket";
 
-import HeaderInput from "@components/HeaderInput";
-
 export const Header = memo(function Header() {
   return (
     <header>
@@ -15,8 +13,6 @@ export const Header = memo(function Header() {
         <NavLink to="/jokes">Jokes</NavLink>
         <Basket className="ml-auto" />
       </nav>
-
-      <HeaderInput />
     </header>
   );
 });

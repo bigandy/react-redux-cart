@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "@stores/store";
 
-const HeaderInput = memo(() => {
+const JokesInput = memo(() => {
   const inputText = useAppSelector((state) => state.jokes.value);
   const status = useAppSelector((state) => state.jokes.status);
 
@@ -40,4 +40,4 @@ const HeaderInput = memo(() => {
     </form>
   );
 });
-export default HeaderInput;
+export default JokesInput;
